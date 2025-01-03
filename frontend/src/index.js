@@ -8,9 +8,10 @@ import TimeMode from './myfiles/TimeMode';
 import ShowAll from './myfiles/ShowAll';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// setting title
 document.title = 'FastFingers';
 root.render(
-  <>
+  <> 
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
