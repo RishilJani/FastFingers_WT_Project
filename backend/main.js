@@ -12,6 +12,7 @@ mongoose.connect(connectionString).then(() => {
     app.use(express.json());
     app.use(express.urlencoded());
     app.use(cors());
+    
     // starting point just for testing
     app.get("/", (req, res) => {
         res.sendFile(__dirname + "/login.html");
@@ -19,7 +20,7 @@ mongoose.connect(connectionString).then(() => {
 
     // get all user's data
     app.get("/user/:username", async (req, res) => {
-        const ans = await User.findOne({username : req.params.username});
+        const ans = await User.findOne({ username: req.params.username });
         res.send(ans);
     });
 
@@ -48,7 +49,7 @@ mongoose.connect(connectionString).then(() => {
         console.log("us = " + req.params.us);
         const ans = await User.findOne({ username: req.params.us });
         console.log("ans = " + ans);
-        
+
         if (ans !== undefined) {
             let sp = (Number)(req.body.speed);
             let ac = (Number)(req.body.accuracy);
