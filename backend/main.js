@@ -12,7 +12,7 @@ mongoose.connect(connectionString).then(() => {
     app.use(express.json());
     app.use(express.urlencoded());
     app.use(cors());
-    
+
     // starting point just for testing
     app.get("/", (req, res) => {
         res.sendFile(__dirname + "/login.html");
@@ -46,17 +46,17 @@ mongoose.connect(connectionString).then(() => {
 
     // to insert speed and accuracy into a user
     app.put("/user/:us", async (req, res) => {
-        console.log("us = " + req.params.us);
         const ans = await User.findOne({ username: req.params.us });
-        console.log("ans = " + ans);
-
+        
+        let dt = getDate();
+        console.log(dt);
         if (ans !== undefined) {
             let sp = (Number)(req.body.speed);
             let ac = (Number)(req.body.accuracy);
-
+            
             ans.speed.push(sp);
             ans.accuracy.push(ac);
-
+            ans.currentDate.push(dt);
             const a = await ans.save();
 
             res.send(a);
@@ -109,4 +109,14 @@ mongoose.connect(connectionString).then(() => {
     app.listen(port, () => {
         console.log("server started at ", port);
     });
-})
+});
+
+function getDate() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '/' + mm + '/' + yyyy;
+    return today;
+}

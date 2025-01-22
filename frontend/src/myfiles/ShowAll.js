@@ -5,25 +5,33 @@ function ShowAll() {
     let us = localStorage.getItem('user');
     var apiUrl = 'http://localhost:4221/user/';
 
-    console.log("us = " + us);
+    // console.log("us = " + us);
     
     const [speed, setSpeed] = useState([]);
     const [accuracy, setAccuracy] = useState([]);
+    const [date,setDate] = useState([]);
     useEffect(() => {
         if(us !== null){
             us = us.substring(1, us.length - 1);
             apiUrl =apiUrl + us;
         }
-        fetch(apiUrl)
-            .then(res => res.json())
-            .then(res => setSpeed(res.speed));
+        // fetch(apiUrl)
+        //     .then(res => res.json())
+        //     .then(res => setSpeed(res.speed));
 
         fetch(apiUrl)
             .then(res => res.json())
-            .then(res => setAccuracy(res.accuracy));
-    }, []);
+            .then(res => {
+                setAccuracy(res.accuracy);
+                setSpeed(res.speed);
+                setDate(res.currentDate);
+            });
+        
+        }, []);
 
-
+        console.log(speed);
+        console.log(date);
+        
 
     var formatted = speed.map((sp, index) => {
         return (
@@ -31,6 +39,7 @@ function ShowAll() {
                 <td>{index + 1}</td>
                 <td>{sp}</td>
                 <td>{accuracy[index]}</td>
+                <td>{date[index]}</td>
             </tr>
         );
     });
@@ -48,6 +57,7 @@ function ShowAll() {
                                 <th></th>
                                 <th>Speed</th>
                                 <th>Accuracy</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>

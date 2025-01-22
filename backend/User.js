@@ -4,7 +4,8 @@ const schema = mongoose.Schema(
         username : String,
         password : String,
         speed : [Number],
-        accuracy : [Number]
+        accuracy : [Number],
+        currentDate : [String]
     }
 );
 module.exports = mongoose.model("User",schema,"Users");
