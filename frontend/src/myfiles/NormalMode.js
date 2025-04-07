@@ -28,8 +28,6 @@ function NormalMode() {
                         un = un.substring(1, un.length - 1);
                         apiUrl = apiUrl + un;
                         
-                        console.log(obj);
-                        console.log(apiUrl);
                         fetch(apiUrl, {
                             method: "PUT",
                             body: JSON.stringify(obj),
@@ -38,7 +36,6 @@ function NormalMode() {
                             }
                         })
                             .then(res => res.json())
-                            .then(res => console.log("res = " + res));
 
                     }
                 }} tabIndex={0}>

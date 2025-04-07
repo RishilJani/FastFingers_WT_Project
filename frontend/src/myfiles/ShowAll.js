@@ -5,7 +5,6 @@ function ShowAll() {
     let us = localStorage.getItem('user');
     var apiUrl = 'http://localhost:4221/user/';
 
-    // console.log("us = " + us);
     
     const [speed, setSpeed] = useState([]);
     const [accuracy, setAccuracy] = useState([]);
@@ -28,9 +27,6 @@ function ShowAll() {
             });
         
         }, []);
-
-        console.log(speed);
-        console.log(date);
         
 
     var formatted = speed.map((sp, index) => {

@@ -57,14 +57,11 @@ function TimeMode() {
 
                 {/* Text Area */}
                 <div className="border border-1 border-info p-4 fs-4" id="mytext" tabIndex={0} ref={myRef} onKeyDown={(e) => {
-                    // console.log("e.key = " + e.key);
                     un = un.substring(1, un.length - 1);
                     const apiUrl = "http://localhost:4221/user/" + un;
                     let ans = TestTimeMode(e);
                     if (ans !== undefined) {
                     
-                        console.log(apiUrl);
-                        console.log(ans);
                         fetch(apiUrl, {
                             method: "PUT",
                             body: JSON.stringify(ans),
@@ -72,8 +69,7 @@ function TimeMode() {
                                 "Content-Type": "application/json"
                             }
                         })
-                            .then(res => res.json())
-                            .then(res => console.log("res = " + res));
+                            .then(res => res.json());
                     }
 
                 }}>

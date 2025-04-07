@@ -138,7 +138,6 @@ function getTimeValue() {
 
 // display decresing time
 function timeDecrement() {
-    console.log("n = " + n);
 
     let displayTime = document.getElementById('displayTime');
     t1 = parseInt(displayTime.innerText);
