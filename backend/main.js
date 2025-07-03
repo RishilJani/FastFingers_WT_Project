@@ -44,26 +44,40 @@ mongoose.connect(connectionString).then(() => {
         }
     });
 
+    app.get("/userdata/:username", async (req,res)=>{
+
+        const ans = await User.findOne({username : req.params.username});
+        if(ans != undefined){
+            res.send(ans.userData);
+        }else{
+            res.send("User Does Not Exits");
+        }
+    });
+
     // to insert speed and accuracy into a user
     app.put("/user/:us", async (req, res) => {
+        console.log("putting " );
         const ans = await User.findOne({ username: req.params.us });
         
-        let dt = getDate();
-        console.log(dt);
         if (ans !== undefined) {
             let sp = (Number)(req.body.speed);
             let ac = (Number)(req.body.accuracy);
+            let dt = getDate();
             
-            ans.speed.push(sp);
-            ans.accuracy.push(ac);
-            ans.currentDate.push(dt);
+            us = { speed : sp , accuracy : ac, currentDate : dt };
+
+            console.log("us Speed = " + us.speed);
+            
+            ans.userData.push(us);
             const a = await ans.save();
 
-            res.send(a);
+            res.send(a.userData);
         } else {
-            res.send({ "res": "User does not exist" });
+            res.status(404).json({ error : "User does not exist" });
         }
     });
+
+
 
     // to delete a user
     app.delete("/user/:us", async (req, res) => {
@@ -93,8 +107,10 @@ mongoose.connect(connectionString).then(() => {
 
     // insert a user ( signup )
     app.post("/signup", async (req, res) => {
+        console.log("signing up....");
         const un = req.body.username.trim();
         const pa = req.body.password.trim();
+        console.log("un = " + un + " pass = " + pa);
         const per = await User.findOne({ username: un });
         if (per == undefined) {
             us = new User({ ...req.body });
@@ -119,4 +135,8 @@ function getDate() {
 
     today = dd + '/' + mm + '/' + yyyy;
     return today;
+}
+
+function UserData(sp, ac,date){
+    return { speed : sp , accuracy : ac, currentDate : date };
 }

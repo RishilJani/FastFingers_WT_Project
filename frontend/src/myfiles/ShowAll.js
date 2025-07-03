@@ -3,39 +3,32 @@ import { useEffect, useState } from "react";
 function ShowAll() {
 
     let us = localStorage.getItem('user');
-    var apiUrl = 'http://localhost:4221/user/';
+    var apiUrl = 'http://localhost:4221/userdata/';
 
-    
-    const [speed, setSpeed] = useState([]);
-    const [accuracy, setAccuracy] = useState([]);
-    const [date,setDate] = useState([]);
+    const [userdata, setUserData] = useState([]);
     useEffect(() => {
-        if(us !== null){
+        if (us != null) {
             us = us.substring(1, us.length - 1);
-            apiUrl =apiUrl + us;
+            apiUrl = apiUrl + us;
         }
-        // fetch(apiUrl)
-        //     .then(res => res.json())
-        //     .then(res => setSpeed(res.speed));
 
         fetch(apiUrl)
             .then(res => res.json())
             .then(res => {
-                setAccuracy(res.accuracy);
-                setSpeed(res.speed);
-                setDate(res.currentDate);
-            });
-        
-        }, []);
-        
+                if (Array.isArray(res)) {
+                    setUserData(res);
+                }
+            }); 
 
-    var formatted = speed.map((sp, index) => {
+    }, []);
+    
+    var formatted = userdata.map((ud, index) => {
         return (
             <tr>
                 <td>{index + 1}</td>
-                <td>{sp}</td>
-                <td>{accuracy[index]}</td>
-                <td>{date[index]}</td>
+                <td>{ud.speed}</td>
+                <td>{ud.accuracy}</td>
+                <td>{ud.currentDate}</td>
             </tr>
         );
     });

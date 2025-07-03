@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Restart, TestNormalMode, display } from "./myFunctions";
-import { useNavigate } from "react-router-dom";
 import './main.css'
 function NormalMode() {
-    const navigate = useNavigate();
     var un = localStorage.getItem('user');
     var apiUrl = "http://localhost:4221/user/";
 
@@ -56,6 +54,5 @@ function NormalMode() {
         );
     }
 }
-
 
 export default NormalMode;

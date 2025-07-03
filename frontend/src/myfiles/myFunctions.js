@@ -43,7 +43,7 @@ function display() {
     arr = [...data[ind]];
     let i = 0;
     let formatedData = arr.map((ele) => {
-        return <span id={"txt" + i++} className="mytxt">{ele}</span>
+        return <span id={"txt" + i++} key={i + ''} className="mytxt">{ele}</span>
     });
     return formatedData;
 }
@@ -55,14 +55,14 @@ function Check(e) {
         let c1 = e.key;
         let c2 = document.getElementById("txt" + j);
 
-        if (e.key == "Backspace") {
+        if (e.key === "Backspace") {
             j--;
             c2 = document.getElementById('txt' + j);
             c2.style.color = 'white';
             para = para.substring(0, para.length - 1);
         }
         else {
-            if (c1 == c2.innerText) {
+            if (c1 === c2.innerText) {
 
                 // if typed char is correct
                 c2.style.color = 'rgb(42, 255, 42)';
@@ -117,7 +117,7 @@ function ShowResult(startTime) {
     return obj;
 }
 
-    // for Time Mode
+// for Time Mode
 
 // to get value of radio btn
 function getTimeValue() {
@@ -173,7 +173,7 @@ function ShowTimeResult(para, AllTime) {
 
     alert("Your typing speed is: " + speed + " Words/Minute and accuracy is " + acc + "%");
     answer = { "speed": speed, "accuracy": acc };
-    
+
     Restart();
     return answer;
 }
